@@ -18,21 +18,9 @@ export const PageNext = () => {
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
-
-  let ImgStyle = {
-    backgroundImage: `url(${process.env.PUBLIC_URL}/anime_wallpaper.jpg)`,
-    minHeight: "100vh", // Allows scrolling
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
   return (
-    <div
+    <div className="Color1"
       onMouseMove={handleMouseMove}
-      style={{ backgroundColor: "rgba(20,14,107,1)", minHeight: "100vh" }}
     >
       {/* Background Light Effect */}
       <motion.div
@@ -59,7 +47,7 @@ export const PageNext = () => {
       />
 
       {/* Animated Box */}
-      <motion.div
+      {/* <motion.div
         style={{
           padding: "40px",
           backdropFilter: "blur(10px)",
@@ -68,7 +56,6 @@ export const PageNext = () => {
           height: "100vh",
         }}
       >
-        {/* Animated Text */}
         <h2
           style={{
             fontSize: "120px",
@@ -106,7 +93,8 @@ export const PageNext = () => {
             </motion.span>
           ))}
         </h2>
-      </motion.div>
+      </motion.div> */}
+      <div><img className="home-img1" src="/Home1.jpg" alt="" /></div>
       <section
         className="nextPage-style d-flex"
         style={{ height: "100vh", color: "white", margin: "0" }}
@@ -124,7 +112,20 @@ export const PageNext = () => {
             Get Started
           </button>
         </div>
-        <div className="boxPage-style"></div>
+        <div className="boxPage-style">
+      <div className="image-container">
+        <img className="boxPage-img" src="/HWB.png" alt="img" />
+        <div className="overlay">
+          <a 
+            href="https://6693fe06b61ecd50c6f3c1dd--preeminent-queijadas-612713.netlify.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            Visit Our Work
+          </a>
+        </div>
+      </div>
+    </div>
       </section>
       <section>
         <div className="nextSection">
@@ -137,10 +138,10 @@ export const PageNext = () => {
             Get Started
           </button>
           <div className="cards-container">
-            <div className="gradient-card"></div>
-            <div className="gradient-card"></div>
-            <div className="gradient-card"></div>
-            <div className="gradient-card"></div>
+            <div className="gradient-card"><img className="gradient-card" src="code2.jpg" alt="" /></div>
+            <div className="gradient-card"><img className="gradient-card" src="code1.jpg" alt="" /></div>
+            <div className="gradient-card"><img className="gradient-card" src="code3.jpg" alt="" /></div>
+            <div className="gradient-card"><img className="gradient-card" src="code4.jpg" alt="" /></div>
           </div>
         </div>
       </section>
@@ -157,7 +158,7 @@ export const PageNext = () => {
             Get Started
           </button>
           <div className="container">
-            <div className="box">
+            <div className="boxs">
               <img
                 src="/Alpha.png"
                 alt="Responsive"

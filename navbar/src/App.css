@@ -4,6 +4,11 @@ html, body {
   padding: 0;
   height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.html,body::-webkit-scrollbar{
+  display: none;
 }
 p li {
   font-family:var(--body-font) ;
@@ -11,6 +16,18 @@ p li {
 :root{
   --body-font: "Montserrat", sans-serif;
   --second-font: "Aclonica", sans-serif;
+}
+
+.home-img1{
+  width: 100%;
+  filter: contrast(1.6);
+  /* filter: brightness(1.1); */
+}
+
+.Color1{
+  background: rgb(20,14,107);
+  background: linear-gradient(357deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  height: 100vh;
 }
 
 .setClr{
@@ -27,6 +44,7 @@ p li {
   backdrop-filter: blur(10px);
   padding: 10px 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.421);
+  font-family: var(--body-font);
 }
 
 ul > li{
@@ -67,7 +85,7 @@ ul > img{
 } */
 
 .trial-btn {
-  background-color: #3399FF; 
+  background-color:#888cf2; 
   color: white;
   border: none;
   border-radius: 50px;
@@ -225,15 +243,70 @@ ul > img{
   padding: 5px 30px 8px 30px;
 }
 
-.boxPage-style{
+.boxPage-style {
   background-color: #064ed5;
-  width:40%;
+  width: 40%;
   position: relative;
-  right: 2%;
-  top: 23%;
+  left: 2%;
+  top: 22%;
   height: 65%;
   border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+/* Image container */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+
+/* Image styling */
+.boxPage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: 0.5s ease-in-out;
+}
+
+/* Overlay effect */
+.overlay {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Black light background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: bottom 0.5s ease-in-out;
+}
+
+/* Overlay text */
+.overlay a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Hover Effect */
+.image-container:hover .overlay {
+  bottom: 0; /* Slide up effect */
+}
+
+.image-container:hover .boxPage-img {
+  filter: brightness(50%);
+}
+
 
 .nextPage-style1{
   position: relative;
@@ -299,6 +372,11 @@ ul > img{
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
+.gradient-card:hover{
+  filter: brightness(70%);
+  transition: all 0.3s;
+}
+
 .nextSection1{
   position: relative;
   color: white;
@@ -340,13 +418,13 @@ ul > img{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px; 
+  height: 0px; 
   position: relative;
   left: 25%;
   top: -37%;
 }
 
-.box {
+.boxs{
   background-color: violet;
   padding: 20px;
   border-radius: 10px;
@@ -742,4 +820,92 @@ ul > img{
     opacity: 1;
     transform: translateY(0);
 }
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #FFF transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #FF3D00 #FF3D00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 32px;
+  height: 32px;
+  border-color: #FFF #FFF transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+    
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.back-home-btn {
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+
+.back-home-btn:hover {
+  background: linear-gradient(90deg, #2a5298, #1e3c72);
+  transform: scale(1.05);
 }
