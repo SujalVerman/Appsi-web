@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { TypeAnimation } from "react-type-animation";
+
 import {
   FaGlobe,
   FaYoutube,
@@ -13,17 +15,55 @@ import {
 
 export const PageNext = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const text = "Welcome To Appsi Studio";
   const navigate = useNavigate();
+
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    }),
+  };
+
+  const images = [
+  "code1.jpg", "code2.jpg", "code3.jpg",
+  "code2.jpg", "code3.jpg", "code1.jpg",
+  "code3.jpg", "code1.jpg", "code2.jpg",
+  "code1.jpg", "code3.jpg", "code2.jpg"
+];
+
+
+  const [index, setIndex] = useState(0);
+
+  const handlePrev = () => {
+    setIndex((prev) => (prev - 3 + images.length) % images.length);
+  };
+
+  const handleNext = () => {
+    setIndex((prev) => (prev + 3) % images.length);
+  };
+
+  const getVisibleImages = () => {
+    return [
+      images[index % images.length],
+      images[(index + 1) % images.length],
+      images[(index + 2) % images.length],
+    ];
+  };
+
+
   return (
-    <div className="Color1"
-      onMouseMove={handleMouseMove}
-    >
-      {/* Background Light Effect */}
-      <motion.div
+    <div className="Color1" onMouseMove={handleMouseMove}>
+      {/* <motion.div
         style={{
           position: "fixed",
           width: "130px",
@@ -44,119 +84,193 @@ export const PageNext = () => {
           ease: "easeOut",
           duration: 0.1,
         }}
-      />
+      /> */}
 
-      {/* Animated Box */}
-      {/* <motion.div
-        style={{
-          padding: "40px",
-          backdropFilter: "blur(10px)",
-          textAlign: "center",
-          zIndex: 1,
-          height: "100vh",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "120px",
-            color: "white",
-            fontFamily: "Poppins, sans-serif",
-            fontWeight: "bold",
-            position: "relative",
-            top: "30%",
-            width: "56%",
-            left: "22%",
-          }}
-        >
-          {text.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              style={{ display: "inline-block" }}
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: index * 0.1,
-                duration: 0.5,
-                ease: "easeOut",
-              }}
-              whileHover={{
-                y: [-5, 0],
-                transition: {
-                  duration: 0.3,
-                  ease: "easeOut",
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                },
-              }}
-            >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-          ))}
+      <div className="video-container">
+        <video
+          src="/VID_20250414220307.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        ></video>
+        <h2 className="video-texts typing-text">
+          <TypeAnimation
+            sequence={[
+              "The leading platform to create, manage and grow a digital presence.",
+              1000,
+              "",
+              500,
+              "Dedication with work can beat any company in the world.",
+              1000,
+              "",
+              500,
+              "Impact and vision.",
+              1000,
+              "",
+              500,
+              "Freedom to create anything.",
+              1000,
+              "",
+              500,
+            ]}
+            wrapper="span"
+            speed={60}
+            deletionSpeed={80}
+            repeat={Infinity}
+            cursor={true}
+          />
         </h2>
-      </motion.div> */}
-      <div><img className="home-img1" src="/Home1.jpg" alt="" /></div>
+      </div>
+
       <section
         className="nextPage-style d-flex"
         style={{ height: "100vh", color: "white", margin: "0" }}
       >
         <div className="nextPage-style1">
-          <h1>Customize to make it your own</h1>
-          <p>→ Intuitive drag & drop</p>
-          <p className="para-2">
+          <motion.h1 variants={fadeInUp} initial="hidden" whileInView="visible">
+            Customize to make it your own
+          </motion.h1>
+          <motion.p variants={fadeInUp} initial="hidden" whileInView="visible">
+            → Intuitive drag & drop
+          </motion.p>
+          <motion.p
+            className="para-2"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
             Effortlessly add & arrange your text. Visual, Button & even entire
             sections
-          </p>
-          <p className="para-3">Built in AI tool</p>
-          <p className="para-4">Advance design features</p>
-          <button className="para-5 mx-2" onClick={() => navigate("/start")}>
+          </motion.p>
+          <motion.p
+            className="para-3"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
+            Built in AI tool
+          </motion.p>
+          <motion.p
+            className="para-4"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
+            Advance design features
+          </motion.p>
+          <motion.button
+            className="para-5 mx-2"
+            onClick={() => navigate("/start")}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
             Get Started
-          </button>
+          </motion.button>
         </div>
         <div className="boxPage-style">
-      <div className="image-container">
-        <img className="boxPage-img" src="/HWB.png" alt="img" />
-        <div className="overlay">
-          <a 
-            href="https://6693fe06b61ecd50c6f3c1dd--preeminent-queijadas-612713.netlify.app/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            Visit Our Work
-          </a>
-        </div>
-      </div>
-    </div>
-      </section>
-      <section>
-        <div className="nextSection">
-          <h1>Grow your website on a rock-solid foundation</h1>
-          <p>
-            Set your site up for success on the powerful infrastructure that
-            supports millions of websites worldwide.
-          </p>
-          <button className="para-6 mx-2" onClick={() => navigate("/start")}>
-            Get Started
-          </button>
-          <div className="cards-container">
-            <div className="gradient-card"><img className="gradient-card" src="code2.jpg" alt="" /></div>
-            <div className="gradient-card"><img className="gradient-card" src="code1.jpg" alt="" /></div>
-            <div className="gradient-card"><img className="gradient-card" src="code3.jpg" alt="" /></div>
-            <div className="gradient-card"><img className="gradient-card" src="code4.jpg" alt="" /></div>
+          <div className="image-container">
+            <img className="boxPage-img" src="/HWB.png" alt="img" />
+            <div className="overlay">
+              <a
+                href="https://6693fe06b61ecd50c6f3c1dd--preeminent-queijadas-612713.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit Our Work
+              </a>
+            </div>
           </div>
         </div>
       </section>
+
+      <section>
+        <div className="nextSection">
+          <motion.h1 variants={fadeInUp} initial="hidden" whileInView="visible">
+            Grow your website on a rock-solid foundation
+          </motion.h1>
+          <motion.p variants={fadeInUp} initial="hidden" whileInView="visible">
+            Set your site up for success on the powerful infrastructure that
+            supports millions of websites worldwide.
+          </motion.p>
+          <motion.button
+            className="para-6 mx-2"
+            onClick={() => navigate("/start")}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
+            Get Started
+          </motion.button>
+          <div className="slider-wrapper">
+            <button className="slider-btn left" onClick={handlePrev}>
+              ◀
+            </button>
+
+            <div className="cards-container">
+              {getVisibleImages().map((img, i) => (
+                <motion.div
+                  key={i}
+                  className="gradient-card"
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  whileHover={{
+                    scale: 1.1,
+                    zIndex: 10,
+                    transition: { type: "spring", stiffness: 300 },
+                  }}
+                >
+                  <img className="gradient-card" src={img} alt="" />
+                </motion.div>
+              ))}
+            </div>
+
+            <button className="slider-btn right" onClick={handleNext}>
+              ▶
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section>
         <div className="nextSection1">
-          <h1 className="para-7">Grow your business from scratch</h1>
-          <p className="para-8">Build app for business</p>
-          <p className="para-9">Custom automation</p>
-          <p className="para-10">Data Analytics</p>
-          <p className="para-11">Deploy your app</p>
-          <p className="para-12">Connect with industries leaders</p>
-          <p className="para-13">Get help at every step</p>
-          <button className="para-14 mx-2" onClick={() => navigate("/start")}>
+          <motion.h1
+            className="para-7"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
+            Grow your business from scratch
+          </motion.h1>
+          {[
+            "Build app for business",
+            "Custom automation",
+            "Data Analytics",
+            "Deploy your app",
+            "Connect with industries leaders",
+            "Get help at every step",
+          ].map((txt, i) => (
+            <motion.p
+              key={i}
+              className={`para-${8 + i}`}
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+            >
+              {txt}
+            </motion.p>
+          ))}
+          <motion.button
+            className="para-14 mx-2"
+            onClick={() => navigate("/start")}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+          >
             Get Started
-          </button>
+          </motion.button>
           <div className="container">
             <div className="boxs">
               <img
@@ -168,61 +282,70 @@ export const PageNext = () => {
           </div>
         </div>
       </section>
+
       <section className="nextSection2">
-        <h1 className="para-15">Build your site in 5 Simple steps</h1>
-        <button className="para-16 mx-2">Start for free</button>
+        <motion.h1
+          className="para-15"
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+        >
+          Build your site in 5 Simple steps
+        </motion.h1>
+        <motion.button
+          className="para-16 mx-2"
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+        >
+          Start for free
+        </motion.button>
         <div className="stepsCount">
-          <p>
-            1. Choose a free template or use the AI website builder to create a
-            unique site that's ready for business.
-          </p>
-          <hr />
-          <p>
-            2. Customize everything from the site layout to visual & content
-            using the drag & drop editor.
-          </p>
-          <hr />
-          <p>
-            3. Add business offering like eCommerce, scheduling solution, a blog
-            & more.
-          </p>
-          <hr />
-          <p>
-            4. Find & register the perfect domain or connect a domain name you
-            already own.
-          </p>
-          <hr />
-          <p>
-            5. Start getting traffic and expand your reach with built-in
-            marketing & SEO tools.
-          </p>
+          {[
+            "1. Choose a free template or use the AI website builder to create a unique site that's ready for business.",
+            "2. Customize everything from the site layout to visual & content using the drag & drop editor.",
+            "3. Add business offering like eCommerce, scheduling solution, a blog & more.",
+            "4. Find & register the perfect domain or connect a domain name you already own.",
+            "5. Start getting traffic and expand your reach with built-in marketing & SEO tools.",
+          ].map((txt, i) => (
+            <React.Fragment key={i}>
+              <motion.p
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+              >
+                {txt}
+              </motion.p>
+              <hr />
+            </React.Fragment>
+          ))}
         </div>
       </section>
-      <section className="nextSection3">
-        <h1>See what's possible</h1>
-        <p>Get inspired by incredible websites made with Appsi</p>
-        <button className="para-16 mx-2">Explore sites</button>
-        <div className="scroll-container">
-          <div className="scroll-content">
-            {[...Array(10)].map((_, index) => (
-              <div key={index} className="box1"></div>
-            ))}
-            {[...Array(10)].map((_, index) => (
-              <div key={index + 10} className="box1"></div>
-            ))}
-          </div>
-        </div>
-        <div className="scroll-container">
-          <div className="scroll-content1">
-            {[...Array(10)].map((_, index) => (
-              <div key={index} className="box1"></div>
-            ))}
 
-            {[...Array(10)].map((_, index) => (
-              <div key={index + 10} className="box1"></div>
-            ))}
+      <section className="nextSection3">
+        <motion.h1 variants={fadeInUp} initial="hidden" whileInView="visible">
+          See what's possible
+        </motion.h1>
+        <motion.p variants={fadeInUp} initial="hidden" whileInView="visible">
+          Get inspired by incredible websites made with Appsi
+        </motion.p>
+        <motion.button
+          className="para-16 mx-2"
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+        >
+          Explore sites
+        </motion.button>
+        {[1, 2].map((row, idx) => (
+          <div key={idx} className="scroll-container">
+            <div className={idx === 0 ? "scroll-content" : "scroll-content1"}>
+              {[...Array(20)].map((_, i) => (
+                <div key={i} className="box1"></div>
+              ))}
+            </div>
           </div>
-        </div>
+        ))}
       </section>
 
       <footer className="footer">
@@ -245,53 +368,57 @@ export const PageNext = () => {
               <strong>Contact Us</strong>
             </p>
           </div>
-
           <div className="footer-links">
-            <div className="footer-column">
-              <p className="footer-title">Product</p>
-              <p>Website templates</p>
-              <p>Website builder</p>
-              <p>Website design</p>
-              <p>Web hosting</p>
-              <p>Mobile app builder</p>
-              <p>Domain names</p>
-            </div>
-
-            <div className="footer-column">
-              <p className="footer-title">Solution</p>
-              <p>eCommerce Website</p>
-              <p>Portfolio Website</p>
-              <p>Restaurant Website</p>
-              <p>Blog Website</p>
-              <p>Student Website</p>
-              <p>Enterprise Solutions</p>
-              <p>Appsi Studio</p>
-            </div>
-
-            <div className="footer-column">
-              <p className="footer-title">Learn</p>
-              <p>Community Page</p>
-              <p>Appsi Blog</p>
-              <p>Learning hub</p>
-            </div>
-
-            <div className="footer-column">
-              <p className="footer-title">Support</p>
-              <p>Hire a professional</p>
-              <p>Help center</p>
-              <p>Report abuse</p>
-              <p>System status</p>
-            </div>
+            {[
+              [
+                "Product",
+                [
+                  "Website templates",
+                  "Website builder",
+                  "Website design",
+                  "Web hosting",
+                  "Mobile app builder",
+                  "Domain names",
+                ],
+              ],
+              [
+                "Solution",
+                [
+                  "eCommerce Website",
+                  "Portfolio Website",
+                  "Restaurant Website",
+                  "Blog Website",
+                  "Student Website",
+                  "Enterprise Solutions",
+                  "Appsi Studio",
+                ],
+              ],
+              ["Learn", ["Community Page", "Appsi Blog", "Learning hub"]],
+              [
+                "Support",
+                [
+                  "Hire a professional",
+                  "Help center",
+                  "Report abuse",
+                  "System status",
+                ],
+              ],
+            ].map(([title, items], i) => (
+              <div key={i} className="footer-column">
+                <p className="footer-title">{title}</p>
+                {items.map((item, j) => (
+                  <p key={j}>{item}</p>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
-
         <div className="footer-bottom">
           <div className="footer-policy">
             <p>Terms of Use</p>
             <p>Privacy Policy</p>
             <p>&copy; Copyright 2025</p>
           </div>
-
           <div className="footer-social">
             <FaGlobe />
             <FaYoutube />

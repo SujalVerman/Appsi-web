@@ -124,7 +124,7 @@ const TemplateBar = () => {
               <nav className="navbar">
                 <ul className="nav-left">
                   <img
-                    onClick={() => navigate("/home")}
+                    onClick={() => navigate("/")}
                     src="/logo3.png"
                     alt="Logo"
                     width="40"

@@ -24,7 +24,7 @@ const TemplateGrid = () => {
   const navigate = useNavigate();
   return (
     <div id="template-grid">
-      <p className="text-dark" style={{fontSize:"15px",fontWeight:"500"}} id="back-button">&lt; Back</p>
+      <p className="text-dark" style={{fontSize:"15px",fontWeight:"500"}} id="back-button" onClick={()=>{navigate("/")}}>&lt; Back</p>
       <div id="grid-container">
         {templates.map((template) => (
           <TemplateCard key={template.id} title={template.title} source={template.source} />

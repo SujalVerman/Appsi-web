@@ -35,7 +35,7 @@ export default function Navbar() {
     <div>
       <nav className="navbar1">
         {/* Logo */}
-        <img src="/Alpha.png" onClick={()=>{navigate("/home")}} alt="Logo" className="navbar-logo" />
+        <img src="/Alpha.png" onClick={()=>{navigate("/")}} alt="Logo" className="navbar-logo" />
 
         {/* Search Bar */}
         <div className="search-container">

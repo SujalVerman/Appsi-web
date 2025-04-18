@@ -39,44 +39,57 @@ const cardData = [
     options: ["Project idea", "Business", "Entrepreneur", "Startup Help", "Freelancing"],
   },
   {
-    title: "Menu",
+    title: "Choose your Domain of Template",
     subtitle: "",
-    options: ["Project idea", "Business", "Entrepreneur", "Startup Help", "Freelancing"],
+    options: [
+      "Portfolio",
+      "E-commerce",
+      "Blog",
+      "Education",
+      "Portal",
+    ],
+  },
+  {
+    title: "Choose your Sub-domain of Template",
+    subtitle: "",
+    options: ["Named Ideal", "Showcase", "Documentation", "Evaluation", "Income Portfolio"],
   }
 ];
 
 const OverlappingCards = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [responses, setResponses] = useState({});
-  const [showLoading, setShowLoading] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [showHomeLoading, setShowHomeLoading] = useState(false);
   const navigate = useNavigate();
 
   const totalCards = cardData.length;
-  const lastMenuCardIndex = totalCards - 2;
-  const isLastMenuCard = currentIndex === lastMenuCardIndex;
+  const lastMenuCardIndex = 6;
   const selectedOption = responses[cardData[currentIndex]?.title] || null;
-  const isButtonDisabled = isLastMenuCard && !selectedOption;
+  const isButtonDisabled =
+    cardData[currentIndex]?.type !== "dropdown" && !selectedOption;
 
   const handleOptionClick = (option) => {
     setResponses((prev) => ({
       ...prev,
-      [cardData[currentIndex].title]: option,
+      [cardData[currentIndex]?.title]: option,
     }));
   };
 
-  const handleContinue = async () => {
-    if (isLastMenuCard && selectedOption) {
-      setShowLoading(true);
-      await saveToFile();
-      
-      setTimeout(() => {
-        setShowLoading(false);
-        setShowThankYou(true);
-      }, 1000);
-    } else if (!isButtonDisabled) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+  const handleContinue = () => {
+    const currentCard = cardData[currentIndex];
+    if (!currentCard) return; // Exit early if no card is found
+
+    // Handling "Choose your Sub-domain of Template" card (index 8)
+    if (currentIndex === 8) {
+      // If any option is selected on this card, navigate to "templatepage"
+      if (responses["Choose your Sub-domain of Template"]) {
+        navigate("/templatepage");
+      }
+    }
+    // If we are on other cards, just move to the next card
+    else {
+      setCurrentIndex((prev) => prev + 1);
     }
   };
 
@@ -85,45 +98,15 @@ const OverlappingCards = () => {
   };
 
   const handleBackToHome = () => {
-    setShowHomeLoading(true); //
+    setShowHomeLoading(true);
     setTimeout(() => {
-      navigate("/home"); 
+      navigate("/home");
     }, 2000);
-  };
-
-  const saveToFile = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/save-data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(responses),
-      });
-      const data = await response.json();
-      console.log(data.message);
-    } catch (error) {
-      console.error("Error saving data:", error);
-    }
   };
 
   return (
     <div className="card-container1">
-      {/* Initial Loading Screen */}
-      {showLoading && (
-        <motion.div
-          className="loading-screen"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <div className="loader"></div>
-          <h2>Saving your responses...</h2>
-        </motion.div>
-      )}
-
-      {/* Home Redirect Loading Screen */}
+      {/* Home Loading Screen */}
       {showHomeLoading && (
         <motion.div
           className="loading-screen"
@@ -147,17 +130,17 @@ const OverlappingCards = () => {
         >
           <h2 className="fade-text">Thank You for Contributing</h2>
           <p className="subtitle">We appreciate your time at Appsi Studio! 🎉</p>
-          <button className="back-home-btn" onClick={()=>{navigate("/templatepage")}}>
+          <button className="back-home-btn" onClick={() => navigate("/templatepage")}>
             Continue
           </button>
         </motion.div>
       )}
 
-      {/* Question Cards */}
-      {!showLoading && !showThankYou && !showHomeLoading &&
+      {/* Cards */}
+      {!showThankYou &&
+        !showHomeLoading &&
         cardData.map((card, index) => {
           const isCurrent = index === currentIndex;
-
           return (
             <motion.div
               key={index}
@@ -175,24 +158,43 @@ const OverlappingCards = () => {
             >
               <h2 className="fade-text">{card.title}</h2>
               <p className="subtitle">{card.subtitle}</p>
-              {card.options.map((option, i) => (
-                <button
-                  key={i}
-                  className={`option-btn ${
-                    responses[card.title] === option ? "selected" : ""
-                  }`}
-                  onClick={() => handleOptionClick(option)}
+
+              {card.type === "dropdown" ? (
+                <select
+                  className="dropdown-select"
+                  value={responses[card.title] || ""}
+                  onChange={(e) => handleOptionClick(e.target.value)}
                 >
-                  {option}
-                </button>
-              ))}
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  {card.options.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                card.options.map((option, i) => (
+                  <button
+                    key={i}
+                    className={`option-btn ${
+                      responses[card.title] === option ? "selected" : ""
+                    }`}
+                    onClick={() => handleOptionClick(option)}
+                  >
+                    {option}
+                  </button>
+                ))
+              )}
+
               <div className="btn-container">
-                <button 
-                  className="continue-btn" 
-                  onClick={handleContinue} 
+                <button
+                  className="continue-btn"
+                  onClick={handleContinue}
                   disabled={isButtonDisabled}
                 >
-                  {isLastMenuCard && selectedOption ? "Finish & Save" : "Continue"}
+                  {currentIndex === totalCards - 1 ? "continue" : "Continue"}
                 </button>
                 {currentIndex < lastMenuCardIndex && (
                   <button className="skip-btn" onClick={handleSkip}>

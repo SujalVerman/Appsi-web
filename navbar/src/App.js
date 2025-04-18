@@ -7,6 +7,10 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import TopBar from './Studiopart/TopBar';
 import TemplateBar from './TemplatePageStudio/TemplateBar'; 
 import './Template.css'
+import LoginPage from './Login/Login';
+import './Login.css'
+import Signup from './Signup/Signup';
+import './Signup.css'
 
 function App() {
   return (
@@ -19,17 +23,20 @@ function App() {
 
 function MainLayout() {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/community" || location.pathname === "/studio" || location.pathname === "/templatepage";
+  const hideNavbar = location.pathname === "/community" || location.pathname === "/studio" || location.pathname === "/templatepage" || location.pathname === "/login" || location.pathname === "/Signup";
 
   return (
     <>
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="/home" element={<PageNext />} />
+        <Route path="/" element={<PageNext />} />
         <Route path="/start" element={<StartBtn />} />
         <Route path="/community" element={<Community />} />
         <Route path="/studio" element={<TopBar />} />
         <Route path="/templatepage" element={<TemplateBar />} /> 
+        <Route path="/login" element={<LoginPage />} /> 
+        <Route path="/Signup" element={<Signup/>}/>
+
       </Routes>
     </>
   );

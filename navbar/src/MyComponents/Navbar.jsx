@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
@@ -64,19 +64,36 @@ const menuItems = [
 
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = (menu) => {
     setActiveMenu((prevMenu) => (prevMenu === menu ? null : menu));
   };
 
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    if (scrollTop > 50) { 
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
       <header>
-        <nav className="navbar">
+        <nav className={`navbar ${isScrolled ? "scrolled" : "navbar"}`}>
           <ul className="nav-left">
             <img
-              onClick={() => navigate("/home")}
+              onClick={() => navigate("/")}
               src="/logo3.png"
               alt="Logo"
               width="40"
@@ -118,7 +135,7 @@ const Navbar = () => {
               <i className="bi bi-globe text-white"></i>
             </span>
             <p className="my-2 text-white" style={{ marginRight: "30px" }}>|</p>
-            <button className="login-btn mx-2">Log In</button>
+            <button className="login-btn mx-2" onClick={()=>{navigate("/login")}}>Log In</button>
             <button className="trial-btn mx-2" onClick={() => navigate("/start")}>
               Start Free Trial
             </button>

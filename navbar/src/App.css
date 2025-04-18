@@ -18,11 +18,50 @@ p li {
   --second-font: "Aclonica", sans-serif;
 }
 
-.home-img1{
+.video-container {
+  position: relative;
   width: 100%;
-  filter: contrast(1.6);
-  /* filter: brightness(1.1); */
+  height: 100vh; /* or whatever height you want */
+  overflow: hidden;
 }
+
+.video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  filter: brightness(80%);
+}
+
+.video-texts {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 5px;
+  animation: blink 0.8s infinite;
+  color: white;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 
 .Color1{
   background: rgb(20,14,107);
@@ -35,17 +74,29 @@ p li {
 }
 
 .navbar {
-  position: fixed!important;
+  position: fixed !important;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+  padding: 10px 20px;
+  font-family: var(--body-font);
+  background: transparent;
+  transition: all 0.3s ease; 
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  padding: 10px 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.421);
-  font-family: var(--body-font);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  
 }
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.421);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 
 ul > li{
   position: relative;
@@ -315,15 +366,16 @@ ul > img{
 }
 
 .nextPage-style{
-  background: rgb(20,14,107);
-  background: linear-gradient(183deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
+
 
 .nextSection{
   height: 100vh;
   color:white;
-  background: rgb(20,14,107);
-  background: linear-gradient(357deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
 
 .nextSection h1{
@@ -359,8 +411,9 @@ ul > img{
   align-items: center;
   gap: 40px; /* Adjust spacing between cards */
   padding: 20px;
-  top: -11%;
+  top: 11%;
   position: relative;
+  margin-bottom: 20%;
 }
 
 .gradient-card {
@@ -377,12 +430,70 @@ ul > img{
   transition: all 0.3s;
 }
 
+/* Slider wrapper to contain cards and navigation */
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  bottom: 10%;
+  margin-bottom: 20%;
+}
+
+/* Navigation Buttons */
+.slider-btn {
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+.slider-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Left and Right button spacing */
+.slider-btn.left {
+  position: relative;
+  left: 0;
+  bottom: 10rem;
+}
+
+.slider-btn.right {
+  position: relative;
+  left: 0;
+  margin-right: 10px;
+  bottom: 10rem;
+}
+
+/* Push back effect for other cards */
+.cards-container:hover .gradient-card {
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+  filter: brightness(60%);
+}
+
+.cards-container .gradient-card:hover {
+  transform: scale(1.05) !important;
+  filter: brightness(100%) !important;
+  z-index: 5;
+}
+
+
 .nextSection1{
   position: relative;
   color: white;
   height: 100vh;
-  background: rgb(20,14,107);
-  background: linear-gradient(183deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
 
 .nextSection1 h1{
@@ -441,8 +552,8 @@ ul > img{
 .nextSection2{
   height: 100vh;
   color: white;
-  background: rgb(20,14,107);
-  background: linear-gradient(357deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
 
 .nextSection2 h1{
@@ -484,8 +595,8 @@ ul > img{
 .nextSection3{
   height: 100vh;
   color: white;
-  background: rgb(20,14,107);
-  background: linear-gradient(183deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
 
 .nextSection3 h1{
@@ -560,8 +671,8 @@ ul > img{
 .nextSection4{
   height: 100vh;
   color: white;
-  background: rgb(20,14,107);
-  background: linear-gradient(357deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
 
 .footer {
@@ -697,8 +808,8 @@ ul > img{
 .StartSec-1{
   height: 100vh;
   color: white;
-  background: rgb(20,14,107);
-  background: linear-gradient(183deg, rgba(20,14,107,1) 35%, rgba(0,0,0,1) 100%);
+  background: #030303;
+  background: linear-gradient(180deg, rgba(3, 3, 3, 1) 0%, rgba(20, 14, 107, 1) 51%, rgba(0, 0, 0, 1) 100%);
 }
 
 .card-container1 {
